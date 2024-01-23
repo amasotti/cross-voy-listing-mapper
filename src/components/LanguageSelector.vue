@@ -1,25 +1,32 @@
 <script setup lang="ts">
 import {languages} from "../constants/languages";
-import {onMounted, ref} from "vue";
+import {onMounted, ref, watch} from "vue";
 
-const selectedLanguage = ref("en");
-
-onMounted(() => {
-  console.log("onMounted lnaguage selector");
+defineProps({
+  label: {
+    type: String,
+    default: "Language:"
+  },
+  language: {
+    type: String,
+    default: ""
+  }
 });
+
+const chosenLanguage = ref(languages.find(language => language.value === "it")?.value);
+
+const emit = defineEmits(['update:language'])
+watch(chosenLanguage, (newValue) => {
+  emit('update:language', newValue)
+})
 
 </script>
 
 <template>
   <div class="mb-4">
-    <h1>Hallo Language</h1>
-    <label class="block text-sm font-bold mb-2">"Something"</label>
-    <select v-model="selectedLanguage" class="shadow border rounded py-2 px-3">
-      <option v-for="language in languages" :key="language.id" :value="language.value">{{ language.label }}</option>
+    <label class="block m-2 voy-blue">{{ label }}</label>
+    <select v-model="chosenLanguage" class="box-shadow rounded py-1 px-2">
+      <option v-for="language in languages" :key=" 'language-' + language.id" :value="language.value">{{ language.label }}</option>
     </select>
   </div>
 </template>
-
-<style scoped>
-
-</style>

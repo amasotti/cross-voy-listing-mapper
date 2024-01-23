@@ -12,9 +12,7 @@ $body-color: #202122;
 $body-bg: #fff;
 $border-radius: .4rem;
 $success: #7952b3;
-$voy_1: #900;
-$voy_2: #396;
-$voy_3: #069;
+
 
 // Required
 @import "bootstrap/scss/variables";
@@ -34,29 +32,14 @@ $voy_3: #069;
 @import "bootstrap/scss/buttons";
 @import "bootstrap/scss/transitions";
 @import "bootstrap/scss/dropdown";
-// @import "bootstrap/scss/button-group";
-// @import "bootstrap/scss/nav";
-// @import "bootstrap/scss/navbar"; // Requires nav
-// @import "bootstrap/scss/card";
-// @import "bootstrap/scss/breadcrumb";
-// @import "bootstrap/scss/accordion";
-// @import "bootstrap/scss/pagination";
-// @import "bootstrap/scss/badge";
-// @import "bootstrap/scss/alert";
-// @import "bootstrap/scss/progress";
-// @import "bootstrap/scss/list-group";
 @import "bootstrap/scss/close";
-// @import "bootstrap/scss/toasts";
 @import "bootstrap/scss/modal"; // Requires transitions
-// @import "bootstrap/scss/tooltip";
+
 @import "bootstrap/scss/popover";
-// @import "bootstrap/scss/carousel";
-// @import "bootstrap/scss/spinners";
 @import "bootstrap/scss/offcanvas"; // Requires transitions
-// @import "bootstrap/scss/placeholders";
 
 // Helpers
-// @import "bootstrap/scss/helpers";
+@import "bootstrap/scss/helpers";
 
 // Utilities
 @import "bootstrap/scss/utilities/api";
@@ -65,8 +48,26 @@ $voy_3: #069;
 //
 // Custom styles
 //
-
+@import "constants";
 
 body {
   padding: 1.5rem;
+}
+
+.voy-blue {
+  color: $voy_3;
+}
+
+.voy-red {
+  color: $voy_1;
+}
+
+.voy-green {
+  color: $voy_2;
+}
+
+.box-shadow {
+  box-shadow: 0 1px 2px -1px rgba(0,0,0,0.2);
+  background-color: #ffffff;
+  color: $font-color;
 }
