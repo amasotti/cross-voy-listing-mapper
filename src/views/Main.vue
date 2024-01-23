@@ -7,6 +7,7 @@ import TextArea from "@/components/TextArea.vue";
 import TheButton from "@/components/TheButton.vue";
 import OutputText from "@/components/OutputText.vue";
 import TheDocs from "@/components/TheDocs.vue";
+import {mapText} from "@/services/mapper.ts";
 
 const sourceLanguage = ref("");
 const targetLanguage = ref("");
@@ -44,8 +45,13 @@ const saveText = (newValue) => {
 };
 
 const translateText = () => {
-  console.log("translateText");
-  mappedText.value = "translated text";
+  console.log("translateText with", inputText.value, sourceLanguage.value, targetLanguage.value);
+
+  const test = mapText(inputText.value, sourceLanguage.value, targetLanguage.value);
+  console.log("test", test);
+  mappedText.value = test;
+
+  //mappedText.value = "translated text";
 };
 
 const reset = () => {

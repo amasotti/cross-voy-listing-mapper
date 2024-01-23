@@ -13,7 +13,7 @@ defineProps({
   }
 });
 
-const chosenLanguage = ref(languages.find(language => language.value === "it")?.value);
+const chosenLanguage = ref("");
 
 const emit = defineEmits(['update:language'])
 watch(chosenLanguage, (newValue) => {

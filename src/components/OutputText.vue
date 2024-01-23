@@ -19,7 +19,11 @@ defineProps({
 <template>
   <div class="text-area-container">
     <label for="outputText" class="text-area-label m-3">{{ label }}</label>
-    <div id="outputText" class="text-area-output" >{{text}}</div>
+    <div id="outputText" class="text-area-output" >
+      <pre>
+      {{text}}
+      </pre>
+    </div>
   </div>
 </template>
 
