@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import {ref, watch} from 'vue';
 import {templates} from "@/constants/templates.ts";
+import {SUPPORTED_TEMPLATE} from "@/types/template.ts";
 
-const selectedTemplate = ref("");
+const selectedTemplate = ref(SUPPORTED_TEMPLATE.SEE);
 const emit = defineEmits(['update:template'])
 
 watch(selectedTemplate, (newValue) => {

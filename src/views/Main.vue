@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import {ref, onMounted, watch} from "vue";
+import {ref} from "vue";
 import LanguageSelector from "../components/LanguageSelector.vue";
 import TemplateSelector from "@/components/TemplateSelector.vue";
 import TextArea from "@/components/TextArea.vue";
@@ -8,18 +8,18 @@ import TheButton from "@/components/TheButton.vue";
 import OutputText from "@/components/OutputText.vue";
 import TheDocs from "@/components/TheDocs.vue";
 import {mapText} from "@/services/mapper.ts";
+import {SUPPORTED_TEMPLATE} from "@/types/template.ts";
+import {SUPPORTED_LANGUAGES} from "@/constants/languages.ts";
 
-const sourceLanguage = ref("");
-const targetLanguage = ref("");
-const templateType = ref("");
+const sourceLanguage = ref(SUPPORTED_LANGUAGES.EN);
+const targetLanguage = ref(SUPPORTED_LANGUAGES.IT);
+const templateType = ref(SUPPORTED_TEMPLATE.SEE);
 
 
 const inputText = ref("");
-const mappedText = ref("sdsa");
+const mappedText = ref("");
 
-// const translateText = () => {
-//   console.log("translateText");
-// };
+// ------ HANDLERS ------
 
 const handleSourceLanguageChange = (newValue) => {
   console.log("handleSourceLanguageChange", newValue);
@@ -44,6 +44,14 @@ const saveText = (newValue) => {
   inputText.value = newValue;
 };
 
+const reset = () => {
+  console.log("reset");
+  inputText.value = "";
+  mappedText.value = "";
+};
+
+
+// ------ METHODS ------
 const translateText = () => {
   console.log("translateText with", inputText.value, sourceLanguage.value, targetLanguage.value);
 
@@ -54,66 +62,62 @@ const translateText = () => {
   //mappedText.value = "translated text";
 };
 
-const reset = () => {
-  console.log("reset");
-  inputText.value = "";
-  mappedText.value = "";
-};
-
 </script>
 
 <template>
 
   <header class="container">
-    <TheDocs />
+    <TheDocs/>
   </header>
 
-    <main class="container align-content-center">
+  <main class="container align-content-center">
 
-      <section class="container">
-        <div class="row justify-content-center mt-3">
-         <div class="col-auto">
-        <LanguageSelector language="sourceLanguage" label="Source Language" @update:language="handleSourceLanguageChange"/>
-          </div>
-          <div class="col-auto">
-        <TemplateSelector v-model="templateType" @update:template="handleTemplateChange"  />
-          </div>
+    <section class="container">
+      <div class="row justify-content-center mt-3">
+        <div class="col-auto">
+          <LanguageSelector language="sourceLanguage" label="Source Language"
+                            @update:language="handleSourceLanguageChange"/>
         </div>
-      </section>
+        <div class="col-auto">
+          <TemplateSelector v-model="templateType" @update:template="handleTemplateChange"/>
+        </div>
+      </div>
+    </section>
 
-      <section>
-        <div class="row">
-          <div class="col">
-            <TextArea v-model="inputText" @update:text="saveText" />
-          </div>
+    <section>
+      <div class="row">
+        <div class="col">
+          <TextArea v-model="inputText" @update:text="saveText"/>
         </div>
-        <div class="row justify-content-center mt-3">
-          <div class="col-auto">
-            <LanguageSelector language="targetLanguage" label="Target Language:" @update:language="handleTargetLanguageChange"/>
-          </div>
-          <div class="col-auto">
-            <TheButton label="Translate" class="btn-translate" @click="translateText" />
-          </div>
+      </div>
+      <div class="row justify-content-center mt-3">
+        <div class="col-auto">
+          <LanguageSelector language="targetLanguage" label="Target Language:"
+                            @update:language="handleTargetLanguageChange"/>
         </div>
-      </section>
+        <div class="col-auto">
+          <TheButton label="Translate" class="btn-translate" @click="translateText"/>
+        </div>
+      </div>
+    </section>
 
 
-      <section>
-        <div class="row">
-          <div class="col">
-            <OutputText :text="mappedText" label="Mapped text" />
-          </div>
+    <section>
+      <div class="row">
+        <div class="col">
+          <OutputText :text="mappedText" label="Mapped text"/>
         </div>
-        <div class="row justify-content-center mt-3">
-          <div class="col-auto">
-            <TheButton label="Clean" class="me-2 btn-reset" @click="reset" />
-          </div>
-          <div class="col-auto">
-            <TheButton label="Copy to CLipboard" class="btn-copy" @click="copyToClipboard" />
-          </div>
+      </div>
+      <div class="row justify-content-center mt-3">
+        <div class="col-auto">
+          <TheButton label="Clean" class="me-2 btn-reset" @click="reset"/>
         </div>
-      </section>
-    </main>
+        <div class="col-auto">
+          <TheButton label="Copy to CLipboard" class="btn-copy" @click="copyToClipboard"/>
+        </div>
+      </div>
+    </section>
+  </main>
 
 </template>
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {languages} from "../constants/languages";
+import {languages, SUPPORTED_LANGUAGES} from "../constants/languages";
 import {onMounted, ref, watch} from "vue";
 
 defineProps({
@@ -13,7 +13,7 @@ defineProps({
   }
 });
 
-const chosenLanguage = ref("");
+const chosenLanguage = ref(SUPPORTED_LANGUAGES.EN);
 
 const emit = defineEmits(['update:language'])
 watch(chosenLanguage, (newValue) => {
