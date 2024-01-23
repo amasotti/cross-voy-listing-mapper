@@ -1,18 +1,21 @@
-# Vue 3 + TypeScript + Vite
+# Wikivoyage Listing Mapper
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Small utility to map Wikivoyage listings from one language to another.
+Will be hosted on [Toolforge](https://admin.toolforge.org/).
 
-## Recommended IDE Setup
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+This is a small utility requested in [a short discussion](https://it.wikivoyage.org/w/index.php?title=Discussioni_utente:Codas&oldid=820893#Citt%C3%A0_Magiche) on Italian Wikivoyage to have a easy 
+(although not beautiful) way to translate wikivoyage templates from one language to another. 
+It does not translate the text inside the template, but only the template (i.e. the params) itself. 
+On the other side, it can also translate lists of templates as usual in the "Eat", "See", "Do" sections on Wikivoyage ([Random page](https://it.wikivoyage.org/wiki/Speciale:PaginaCasuale))
 
-## Type Support For `.vue` Imports in TS
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+**For Nerds:** this is a small utility I am writing with TS (Vue3), still WIP. Many differences between languages have to be taken
+into account.
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+It is really simple: it just parses the input, models the template in a ad hoc class using some RegExp, 
+then uses a mapping from the param names in the source language to the target language. 
+The mapping is stored in a JSON file. Nothing special, but feel free to improve it here.
+I am thinking if to continue with this approach or rely more on the Mediawiki API + some available parser in Python, Java or Nodejs. 
+This is just meant to be a fist step.
 
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
