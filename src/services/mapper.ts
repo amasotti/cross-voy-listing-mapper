@@ -1,6 +1,6 @@
 import {Template} from "@/services/models/Template.ts";
 import {SUPPORTED_TEMPLATE, TemplateMapper, TemplateParams} from "@/types/template.ts";
-import {mapSeeTemplate} from "@/services/listing.mapper.ts";
+import {mapListing} from "@/services/listing.mapper.ts";
 
 export const mapText = (text: string, sourceLang: string, targetLang: string): string => {
     const templates = extractTemplatesFromText(text);
@@ -52,7 +52,11 @@ const extractTemplatesFromText = (text:string): string[] => {
 const setMappingStrategy = (templateType: SUPPORTED_TEMPLATE): TemplateMapper => {
     switch (templateType) {
         case SUPPORTED_TEMPLATE.SEE:
-            return mapSeeTemplate;
+        case SUPPORTED_TEMPLATE.SLEEP:
+        case SUPPORTED_TEMPLATE.DRINK:
+        case SUPPORTED_TEMPLATE.EAT:
+        case SUPPORTED_TEMPLATE.DO:
+            return mapListing;
         default:
             throw new Error('Template type not supported');
     }
