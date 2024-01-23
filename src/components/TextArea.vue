@@ -2,17 +2,14 @@
 
 import {ref, watch} from "vue";
 
-const text = ref("");
 defineProps({
   label: {
     type: String,
     default: "Original text:"
   },
-  disabled: {
-    type: Boolean,
-    default: false
-  }
 });
+
+const text = ref("");
 
 const emit = defineEmits(['update:text'])
 
@@ -26,10 +23,9 @@ watch(text, (newValue) => {
   <div class="text-area-container">
     <label for="expandableTextArea" class="text-area-label m-3">{{label}}</label>
     <textarea
-        :disabled="disabled"
         id="expandableTextArea"
         v-model="text"
-        :class="(disabled ? ' text-area-disabled' : 'text-area')"
+        class="text-area"
     ></textarea>
   </div>
 </template>
@@ -61,17 +57,5 @@ watch(text, (newValue) => {
     outline: none;
     border-color: $voy_2;
   }
-}
-
-
-.text-area-disabled {
-  flex-grow: 1;
-  border: 1px solid $voy_2;
-  background-color: rgba($voy_2, 0.05);
-  border-radius: 8px;
-  padding: 0.5rem;
-  resize: vertical;
-  overflow: auto;
-  min-height: 250px;
 }
 </style>

@@ -5,6 +5,8 @@ import LanguageSelector from "../components/LanguageSelector.vue";
 import TemplateSelector from "@/components/TemplateSelector.vue";
 import TextArea from "@/components/TextArea.vue";
 import TheButton from "@/components/TheButton.vue";
+import OutputText from "@/components/OutputText.vue";
+import TheDocs from "@/components/TheDocs.vue";
 
 const sourceLanguage = ref("");
 const targetLanguage = ref("");
@@ -12,7 +14,7 @@ const templateType = ref("");
 
 
 const inputText = ref("");
-// const outputText = ref("");
+const mappedText = ref("sdsa");
 
 // const translateText = () => {
 //   console.log("translateText");
@@ -32,46 +34,76 @@ const handleTemplateChange = (newValue) => {
   console.log("handleTemplateChange", newValue);
 };
 
+const copyToClipboard = () => {
+  navigator.clipboard.writeText(mappedText.value);
+};
 
+const saveText = (newValue) => {
+  console.log("saveText", newValue);
+  inputText.value = newValue;
+};
+
+const translateText = () => {
+  console.log("translateText");
+  mappedText.value = "translated text";
+};
+
+const reset = () => {
+  console.log("reset");
+  inputText.value = "";
+  mappedText.value = "";
+};
 
 </script>
 
 <template>
+
+  <header class="container">
+    <TheDocs />
+  </header>
+
     <main class="container align-content-center">
 
       <section class="container">
-        <div class="row">
-         <div class="col">
+        <div class="row justify-content-center mt-3">
+         <div class="col-auto">
         <LanguageSelector language="sourceLanguage" label="Source Language" @update:language="handleSourceLanguageChange"/>
           </div>
-          <div class="col">
+          <div class="col-auto">
         <TemplateSelector v-model="templateType" @update:template="handleTemplateChange"  />
           </div>
         </div>
       </section>
 
-
       <section>
-        <TextArea v-model="inputText" />
+        <div class="row">
+          <div class="col">
+            <TextArea v-model="inputText" @update:text="saveText" />
+          </div>
+        </div>
+        <div class="row justify-content-center mt-3">
+          <div class="col-auto">
+            <LanguageSelector language="targetLanguage" label="Target Language:" @update:language="handleTargetLanguageChange"/>
+          </div>
+          <div class="col-auto">
+            <TheButton label="Translate" class="btn-translate" @click="translateText" />
+          </div>
+        </div>
       </section>
-
-
-
-      <LanguageSelector language="targetLanguage" label="Target Language:" @update:language="handleTargetLanguageChange"/>
 
 
       <section>
         <div class="row">
           <div class="col">
-        <TextArea v-model="inputText" label="Mapped text" :disabled="true"/>
-            </div>
+            <OutputText :text="mappedText" label="Mapped text" />
+          </div>
         </div>
-          <div class="row">
-            <div class="col">
-              <TheButton label="Translate" />
-            </div>
-          <div class="col">
-            <TheButton label="Translate" />
+        <div class="row justify-content-center mt-3">
+          <div class="col-auto">
+            <TheButton label="Clean" class="me-2 btn-reset" @click="reset" />
+          </div>
+          <div class="col-auto">
+            <TheButton label="Copy to CLipboard" class="btn-copy" @click="copyToClipboard" />
           </div>
         </div>
       </section>
@@ -79,6 +111,23 @@ const handleTemplateChange = (newValue) => {
 
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+@import "@/scss/constants";
+
+.btn-translate {
+  background-color: $voy_2;
+  border-color: $voy_2;
+}
+
+.btn-reset {
+  background-color: $voy_1;
+  border-color: $voy_1;
+}
+
+.btn-copy {
+  background-color: $voy_2;
+  border-color: $voy_2;
+}
+
 
 </style>
