@@ -1,12 +1,7 @@
-
-type Language = {
-    id: number,
-    value: string,
-    label: string
-}
+import {Options} from "@/types/options.ts";
 
 
-export const languages: Language[] = [
+export const languages: Options[] = [
     {id: 1, value: 'it', label: 'Italian'},
     {id: 2, value: 'en', label: 'English'},
     {id: 3, value: 'fr', label: 'French'},

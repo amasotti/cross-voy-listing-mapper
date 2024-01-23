@@ -2,11 +2,12 @@
 
 import { ref, onMounted } from "vue";
 import LanguageSelector from "../components/LanguageSelector.vue";
+import TemplateSelector from "@/components/TemplateSelector.vue";
 
 const sourceLanguage = ref("");
 const targetLanguage = ref("");
+const templateType = ref("");
 
-// const templateType = ref("");
 //
 // const inputText = ref("");
 // const outputText = ref("");
@@ -25,7 +26,7 @@ onMounted(() => {
 <template>
     <div class="container mx-auto p-4">
       <LanguageSelector v-model="sourceLanguage" label="Source Language:" />
-<!--      <TemplateTypeSelector v-model="templateType" />-->
+      <TemplateSelector v-model="templateType" />
 <!--      <TextInputArea v-model="inputText" />-->
 <!--      <TranslateButton @click="translateText" />-->
       <LanguageSelector v-model="targetLanguage" label="Target Language:" />
