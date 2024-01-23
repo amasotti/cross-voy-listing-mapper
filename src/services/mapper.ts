@@ -1,5 +1,5 @@
 import {Template} from "@/services/models/Template.ts";
-import {SUPPORTED_TEMPLATE, TemplateMapper, TemplateParams} from "@/types/template.ts";
+import {SUPPORTED_TEMPLATE, TemplateMapper} from "@/types/template.ts";
 import {mapListing} from "@/services/listing.mapper.ts";
 
 export const mapText = (text: string, sourceLang: string, targetLang: string): string => {

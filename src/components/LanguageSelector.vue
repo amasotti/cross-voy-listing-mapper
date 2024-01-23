@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {languages, SUPPORTED_LANGUAGES} from "../constants/languages";
-import {onMounted, ref, watch} from "vue";
+import { ref, watch} from "vue";
 
 defineProps({
   label: {

@@ -21,17 +21,17 @@ const mappedText = ref("");
 
 // ------ HANDLERS ------
 
-const handleSourceLanguageChange = (newValue) => {
+const handleSourceLanguageChange = (newValue: SUPPORTED_LANGUAGES) => {
   console.log("handleSourceLanguageChange", newValue);
   sourceLanguage.value = newValue;
 };
 
-const handleTargetLanguageChange = (newValue) => {
+const handleTargetLanguageChange = (newValue: SUPPORTED_LANGUAGES) => {
   console.log("handleTargetLanguageChange", newValue);
   targetLanguage.value = newValue;
 };
 
-const handleTemplateChange = (newValue) => {
+const handleTemplateChange = (newValue: SUPPORTED_TEMPLATE) => {
   console.log("handleTemplateChange", newValue);
 };
 
@@ -39,8 +39,7 @@ const copyToClipboard = () => {
   navigator.clipboard.writeText(mappedText.value);
 };
 
-const saveText = (newValue) => {
-  console.log("saveText", newValue);
+const saveText = (newValue: string) => {
   inputText.value = newValue;
 };
 

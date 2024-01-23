@@ -35,6 +35,7 @@ export const mapListing = (template: Template, sourceLang: string, targetLang: s
     const keys = Object.keys(mappingJson).filter(key => mappingJson[key][targetLang] !== 'NOT_AVAILABLE');
     console.log("Available keys: " + keys);
 
+    // @ts-ignore
     for (const entry of Object.entries(template.params)) {
         console.log(Object.keys(template.params));
 
