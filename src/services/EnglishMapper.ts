@@ -21,7 +21,7 @@ export class EnglishMapper extends AbstractMapper {
         const wishedTemplate = this.filterTemplates(templatesInArticle, targetTemplate);
 
         if (wishedTemplate.length === 0) {
-            return null;
+            return `No '${targetTemplate}' template found in ${article} article.`
         }
 
         const templateArray = this.buildTemplateArray(wishedTemplate);

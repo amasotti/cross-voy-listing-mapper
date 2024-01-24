@@ -13,7 +13,6 @@ export class MediaWikiAPI {
         this.baseUrl = `https://${lang}.wikivoyage.org/w/rest.php/v1/page`;
     }
 
-
     getSource = async (article: string): Promise<AxiosResponse<GetPageResponse>|null> => {
 
         try {

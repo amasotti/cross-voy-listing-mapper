@@ -9,20 +9,15 @@ export abstract class AbstractMapper {
 
     async getText(article: string): Promise<string | null> {
         const rawText = await getSourceWikitext(article, this.lang);
+        return rawText ? this.cleanText(rawText) : null;
+    }
 
-        if (!rawText) {
-            return null;
-        }
-
-        return rawText
+    private cleanText(text: string): string {
+        return this.handlePipedWikilinks(this.removeNewLinesAndSpaces(text));
     }
 
     protected buildTemplateArray(templates: string[]): Template[] {
-        const templateArray: Template[] = [];
-        for (const template of templates) {
-            templateArray.push(Template.parse(template));
-        }
-        return templateArray;
+        return templates.map(template => Template.parse(template));
     }
 
     protected extractTemplatesFromText(text) {
@@ -75,9 +70,6 @@ export abstract class AbstractMapper {
     }
 
 
-
-
-
     protected filterTemplates (templates: string[], targetTemplate: SUPPORTED_TEMPLATE): string[] {
 
         const filteredTemplates = [];
@@ -99,27 +91,21 @@ export abstract class AbstractMapper {
         return mappedTemplates;
     }
 
-    protected mapParams (template:Template, targetLanguage: SUPPORTED_LANGUAGES): Template {
-                const mappedParams: TemplateParams = {};
+    protected mapParams(template: Template, targetLanguage: SUPPORTED_LANGUAGES): Template {
+        const mappedParams: TemplateParams = {};
+        const keysToMap = this.getKeysToMap(targetLanguage);
 
-
-
-        // Collect all the keys mappings where the target language value is not NOT_AVAILABLE
-        const keys = Object.keys(listingMapping).filter(key => listingMapping[key][targetLanguage] !== 'NOT_AVAILABLE');
-
-        // @ts-ignore
-        for (const entry of Object.entries(template.params)) {
-
-            for (const key of keys) {
-                const foreignKey = listingMapping[key][this.lang];
-                const targetKey = listingMapping[key][targetLanguage];
-                if (Object.keys(template.params).includes(foreignKey)) {
-
-                    mappedParams[targetKey] = template.params[foreignKey];
-                }
+        for (const [key, value] of Object.entries(template.params)) {
+            if (keysToMap.has(key)) {
+                mappedParams[listingMapping[key][targetLanguage]] = value;
             }
         }
+
         return new Template(template.type, mappedParams);
+    }
+
+    private getKeysToMap(targetLanguage: SUPPORTED_LANGUAGES): Set<string> {
+        return new Set(Object.keys(listingMapping).filter(key => listingMapping[key][targetLanguage] !== 'NOT_AVAILABLE'));
     }
 
 
