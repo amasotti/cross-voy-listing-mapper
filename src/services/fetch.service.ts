@@ -1,9 +1,9 @@
 import {SUPPORTED_LANGUAGES} from "@/constants/languages.ts";
-import {API} from "@/services/api/mediawiki.api.ts";
+import {MediaWikiAPI} from "@/services/api/mediawiki.api.ts";
 
 
 export const getSourceWikitext = async (article: string, language: SUPPORTED_LANGUAGES): Promise<string> => {
-    const api = new API(language);
+    const api = new MediaWikiAPI(language);
     const resp = await api.getSource(article);
 
     if (!resp) {

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {languages, SUPPORTED_LANGUAGES} from "../constants/languages";
+import {languages} from "../constants/languages";
 import { ref, watch} from "vue";
 
 const props = defineProps({

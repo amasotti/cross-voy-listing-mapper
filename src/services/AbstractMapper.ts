@@ -25,7 +25,6 @@ export abstract class AbstractMapper {
         return templateArray;
     }
 
-
     protected extractTemplatesFromText(text) {
         const templates = [];
         const nestedTemplates = [];

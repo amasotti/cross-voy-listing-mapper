@@ -17,11 +17,10 @@
 
     <!--      Now disclaimer for techies-->
       <p class="description">
-        <span class="fw-bold">For Nerds:</span> this is a small utility I am writing with TS (Vue3), still WIP. It is really simple: it just parses the input,
-        models the template in a ad hoc class using some RegExp, then uses a mapping from the param names
-        in the source language to the target language. The mapping is stored in a JSON file.
-        Nothing special, but feel free to improve <a href="https://github.com/amasotti/cross-voy-listing-mapper">it here</a>.
-        I am thinking if to continue with this approach or rely more on the Mediawiki API + some available parser in Python, Java or Nodejs. This is just meant to be a fist step.
+        <span class="fw-bold">For Nerds:</span> this is a small utility I am writing with TS (Vue3), still WIP. It is really simple: it just
+        downloads the page using the Mediawiki API, parses it with help of some small parser utilities, that extract the templates and then
+        builds the new template in the target language.
+        Nothing special, and for sure not bug-free, but feel free to test it and improve <a href="https://github.com/amasotti/cross-voy-listing-mapper">it here</a> or leave a feedback.
       </p>
     </div>
   </div>

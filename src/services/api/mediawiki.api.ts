@@ -3,7 +3,7 @@ import axios, {AxiosResponse} from "axios";
 import {GetPageResponse} from "@/types/mediawikiApi.ts";
 
 
-export class API {
+export class MediaWikiAPI {
     baseUrl: string = '';
     headers = {
         'Api-User-Agent': 'Cross-voy-listing-mapper (https://toolsadmin.wikimedia.org/tools/id/cross-voy-listing-mapper)'
