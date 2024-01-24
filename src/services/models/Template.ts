@@ -109,20 +109,18 @@ export class Template {
 
         // then orari, prezzo
         for (const key of ['orari', 'checkin', 'checkout', 'prezzo']) {
+            console.log("analyzing key " + key)
+            console.log(this.params[key])
+
             if (this.params[key]) {
                 formattedString += '| ' + key + '= ' + this.params[key] + ' ';
             } else {
-                // checkin and checkout are only for SLEEP which doesn't have orari
-                // Other types will include instead orari and prezzo but not checkin and checkout
 
                 if ((key === 'checkin' || key === 'checkout') && this.type === SUPPORTED_TEMPLATE.SLEEP) {
                     formattedString += '| ' + key + '= ' + ' ';
-                } else {
-
-                    if (key in ['orari', 'prezzo'] && this.type !== SUPPORTED_TEMPLATE.SLEEP) {
+                } else if (['orari', 'prezzo'].includes(key) && this.type !== SUPPORTED_TEMPLATE.SLEEP) {
                         formattedString += '| ' + key + '= ' + ' ';
                     }
-                }
             }
         }
         formattedString += '\n';
