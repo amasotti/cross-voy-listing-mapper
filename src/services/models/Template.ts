@@ -49,10 +49,12 @@ export class Template {
     private static extractTemplateParams(template: string): TemplateParams {
         const params: TemplateParams = {};
         const paramsString = template.substring(template.indexOf(Template.PARAM_SEPARATOR) + 1, template.lastIndexOf(Template.TEMPLATE_END));
+
         paramsString.split(Template.PARAM_SEPARATOR).forEach(paramString => {
             const [key, value] = paramString.split(Template.PARAM_VALUE_SEPARATOR).map(s => s.trim());
             if (key) params[key] = value;
         });
+
         return params;
     }
 
@@ -68,11 +70,18 @@ export class Template {
     formatIT(): string {
         let formattedString = `* ${Template.TEMPLATE_START}${this.type}\n`;
 
-        const paramGroups = [
+        const paramGroups = this.type !== SUPPORTED_TEMPLATE.SLEEP ? [
             ['nome', 'alt', 'sito', 'email'],
             ['indirizzo', 'lat', 'long', 'indicazioni'],
             ['tel', 'numero verde', 'fax'],
-            ['orari', 'checkin', 'checkout', 'prezzo'],
+            ['orari', 'prezzo'],
+            ['wikidata', 'immagine'],
+            ['descrizione']
+        ] : [
+            ['nome', 'alt', 'sito', 'email'],
+            ['indirizzo', 'lat', 'long', 'indicazioni'],
+            ['tel', 'numero verde', 'fax'],
+            ['checkin', 'checkout', 'prezzo'],
             ['wikidata', 'immagine'],
             ['descrizione']
         ];
@@ -88,8 +97,7 @@ export class Template {
     private formatParamGroup(keys: string[]): string {
         return keys.map(key => {
             const value = this.params[key] || '';
-            const spaceAfterKey = key === 'descrizione' ? ' ' : addSpaces(Template.PARAM_VALUE_SEPARATOR, 1);
-            return addSpaces(Template.PARAM_SEPARATOR, 1) + key + spaceAfterKey + addSpaces(value, 1);
+            return addSpaces(Template.PARAM_SEPARATOR, 1) + key + addSpaces(Template.PARAM_VALUE_SEPARATOR, 1) + addSpaces(value, 1);
         }).join('');
     }
 

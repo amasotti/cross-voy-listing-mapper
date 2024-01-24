@@ -31,12 +31,27 @@ test('Template Class - format function', () => {
         "| nome=  | alt=  | sito=  | email=  \n" +
         "| indirizzo=  | lat=  | long=  | indicazioni=  \n" +
         "| tel=  | numero verde=  | fax=  \n" +
-        "| orari=  | checkin=  | checkout=  | prezzo=  \n" +
+        "| orari=  | prezzo=  \n" +
         "| wikidata=  | immagine=  \n" +
-        "| descrizione  \n" +
+        "| descrizione=  \n" +
         "}}\n";
     expect(template.format(SUPPORTED_LANGUAGES.IT)).toBe(expectedResult);
 });
+
+test('Template Class - format Hotels', () => {
+    const params: TemplateParams = { name: "John" };
+    const template = new Template(SUPPORTED_TEMPLATE.SLEEP, params);
+
+    const expectedResult = "* {{sleep\n" +
+        "| nome=  | alt=  | sito=  | email=  \n" +
+        "| indirizzo=  | lat=  | long=  | indicazioni=  \n" +
+        "| tel=  | numero verde=  | fax=  \n" +
+        "| checkin=  | checkout=  | prezzo=  \n" +
+        "| wikidata=  | immagine=  \n" +
+        "| descrizione=  \n" +
+        "}}\n";
+    expect(template.format(SUPPORTED_LANGUAGES.IT)).toBe(expectedResult);
+})
 
 test('Template Class - format function unsupported language', () => {
     const params: TemplateParams = { name: "John" };

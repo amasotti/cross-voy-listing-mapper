@@ -53,27 +53,31 @@ export abstract class AbstractMapper {
 
     protected mapParams(template: Template, targetLanguage: SUPPORTED_LANGUAGES): Template {
         const mappedParams: TemplateParams = {};
-        const keysToMap = this.getKeysToMap(targetLanguage);
+        const keysToMap = this.getKeysToMap(targetLanguage, template);
 
-        for (const [key, value] of Object.entries(template.params)) {
-            if (keysToMap.has(key)) {
+        keysToMap.forEach(
+            key => {
+                console.log("Mapping key: " + key)
                 // @ts-ignore
-                mappedParams[listingMapping[key][targetLanguage]] = value;
+                const keyMapping: ParamLocalLabel = listingMapping[key];
+                const mappedKey: string = keyMapping[targetLanguage];
+                const sourceKey: string = keyMapping[this.lang];
+                // @ts-ignore
+                mappedParams[mappedKey] = template.params[sourceKey];
             }
-        }
+        )
 
         return new Template(template.type, mappedParams);
     }
 
-    private getKeysToMap(targetLanguage: SUPPORTED_LANGUAGES): Set<string> {
-
+    private getKeysToMap(targetLanguage: SUPPORTED_LANGUAGES, template:Template): Set<string> {
         // @ts-ignore
         const filteredKeys = Object.keys(listingMapping as ListingParams).filter(
             key => {
                 // @ts-ignore
                 const keyMapping: ParamLocalLabel = listingMapping[key];
                 const mappedKey: string = keyMapping[targetLanguage];
-                return (mappedKey as string) !== this.NON_AVAILABLE_LABEL
+                return (mappedKey as string) !== this.NON_AVAILABLE_LABEL && template.params[keyMapping[this.lang]];
             }
         );
 
