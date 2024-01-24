@@ -14,6 +14,7 @@
         but only the template (i.e. the params) itself. On the other side, it can also translate lists of templates as usual in the "Eat", "See", "Do" sections on
         Wikivoyage <a href="https://it.wikivoyage.org/wiki/Speciale:PaginaCasuale">(<em>Random page</em>)</a>
       </p>
+      <p class="fst-italic">At moment the tool only supports translation / mapping from English to Italian. If you would like to have more language, <a href="https://it.wikivoyage.org/wiki/Discussioni_utente:Nastoshka">let me know.</a></p>
 
     <!--      Now disclaimer for techies-->
       <p class="description">
