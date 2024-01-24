@@ -72,63 +72,32 @@ export class Template {
         }
     }
 
-
     formatIT(): string {
-        let formattedString = '* ' + Template.TEMPLATE_START + this.type + '\n';
+        let formattedString = `* ${Template.TEMPLATE_START}${this.type}\n`;
 
-        // First line: nome, alt, sito, email if available, all on the same line
-        for (const key of ['nome', 'alt', 'sito', 'email']) {
-            if (this.params[key]) {
-                formattedString += addSpaces(Template.PARAM_SEPARATOR,1) + key + addSpaces(Template.PARAM_VALUE_SEPARATOR,1) + addSpaces(this.params[key],1);
-            }
-        }
-        formattedString += '\n';
+        const paramGroups = [
+            ['nome', 'alt', 'sito', 'email'],
+            ['indirizzo', 'lat', 'long', 'indicazioni'],
+            ['tel', 'numero verde', 'fax'],
+            ['orari', 'checkin', 'checkout', 'prezzo'],
+            ['wikidata', 'immagine'],
+            ['descrizione']
+        ];
 
-        // Then indirizzo, lat, long, indicazioni
-        for (const key of ['indirizzo', 'lat', 'long', 'indicazioni']) {
-            if (this.params[key]) {
-                formattedString += addSpaces(Template.PARAM_SEPARATOR,1)  + key + addSpaces(Template.PARAM_VALUE_SEPARATOR,1) + addSpaces(this.params[key],1);
-            } else {
-                formattedString += addSpaces(Template.PARAM_SEPARATOR,1)  + key + addSpaces(Template.PARAM_VALUE_SEPARATOR,1);
-            }
-        }
-        formattedString += '\n';
+        paramGroups.forEach(group => {
+            formattedString += this.formatParamGroup(group) + '\n';
+        });
 
-        // then tel, numero verde, fax
-        for (const key of ['tel', 'numero verde', 'fax']) {
-            if (this.params[key]) {
-                formattedString += addSpaces(Template.PARAM_SEPARATOR,1) + key + addSpaces(Template.PARAM_VALUE_SEPARATOR,1) + addSpaces(this.params[key],1);
-            } else {
-                formattedString += addSpaces(Template.PARAM_SEPARATOR,1) + key + addSpaces(Template.PARAM_VALUE_SEPARATOR,1);
-            }
-        }
-        formattedString += '\n';
-
-        // then orari, prezzo
-        for (const key of ['orari', 'checkin', 'checkout', 'prezzo']) {
-            if (this.params[key]) {
-                formattedString += addSpaces(Template.PARAM_SEPARATOR,1) + key + addSpaces(Template.PARAM_VALUE_SEPARATOR,1) + addSpaces(this.params[key],1);
-            } else {
-
-                if ((key === 'checkin' || key === 'checkout') && this.type === SUPPORTED_TEMPLATE.SLEEP) {
-                    formattedString += addSpaces(Template.PARAM_SEPARATOR,1) + key + addSpaces(Template.PARAM_VALUE_SEPARATOR,2);
-                } else if (['orari', 'prezzo'].includes(key) && this.type !== SUPPORTED_TEMPLATE.SLEEP) {
-                        formattedString += addSpaces(Template.PARAM_SEPARATOR,1) + key + addSpaces(Template.PARAM_VALUE_SEPARATOR,2);
-                    }
-            }
-        }
-        formattedString += '\n';
-
-        // then descrizione
-        if (this.params['descrizione']) {
-            formattedString += '| descrizione= ' + addSpaces(this.params['descrizione'],1);
-        } else {
-            formattedString += '| descrizione=  ';
-        }
-
-        formattedString += '\n'+ Template.TEMPLATE_END + '\n';
-
+        formattedString += Template.TEMPLATE_END + '\n';
         return formattedString;
+    }
+
+    private formatParamGroup(keys: string[]): string {
+        return keys.map(key => {
+            const value = this.params[key] || '';
+            const spaceAfterKey = key === 'descrizione' ? ' ' : addSpaces(Template.PARAM_VALUE_SEPARATOR, 1);
+            return addSpaces(Template.PARAM_SEPARATOR, 1) + key + spaceAfterKey + addSpaces(value, 1);
+        }).join('');
     }
 
 }
