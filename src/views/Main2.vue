@@ -3,23 +3,20 @@
 import {ref} from "vue";
 import LanguageSelector from "../components/LanguageSelector.vue";
 import TemplateSelector from "@/components/TemplateSelector.vue";
-import TextArea from "@/components/TextArea.vue";
 import TheButton from "@/components/TheButton.vue";
 import OutputText from "@/components/OutputText.vue";
 import TheDocs from "@/components/TheDocs.vue";
-import {map2, mapText} from "@/services/mapper.ts";
 import {SUPPORTED_TEMPLATE} from "@/types/template.ts";
 import {SUPPORTED_LANGUAGES} from "@/constants/languages.ts";
-import {getSourceWikitext} from "@/services/fetch.service.ts";
 import TitleInput from "@/components/TitleInput.vue";
-import {EnglishMapper} from "@/services/EnglishMapper.ts";
+import {chooseMapper} from "@/services/mapper.strategy.ts";
+import {AbstractMapper} from "@/services/AbstractMapper.ts";
 
 const sourceLanguage = ref(SUPPORTED_LANGUAGES.EN);
 const targetLanguage = ref(SUPPORTED_LANGUAGES.IT);
 const templateType = ref(SUPPORTED_TEMPLATE.SEE);
 const articleTitle = ref("");
 
-const inputText = ref("");
 const mappedText = ref("");
 
 // ------ HANDLERS ------
@@ -48,12 +45,9 @@ const copyToClipboard = () => {
   navigator.clipboard.writeText(mappedText.value);
 };
 
-const saveText = (newValue: string) => {
-  inputText.value = newValue;
-};
 
 const reset = () => {
-  inputText.value = "";
+  articleTitle.value = "";
   mappedText.value = "";
 };
 
@@ -62,9 +56,14 @@ const reset = () => {
 const translateText = async () => {
   console.log("Trying to translate text");
 
-  // TODO: add a strategy to select the right mapper
-  const mapper = new EnglishMapper();
-
+  let mapper: AbstractMapper;
+  try {
+    mapper = chooseMapper(sourceLanguage.value)
+  } catch (error) {
+    console.log("Error while choosing mapper", error);
+    mappedText.value = "Error -- Still working on this language. Be patient or help me ;)";
+    return;
+  }
 
   const res = await mapper.map(articleTitle.value, targetLanguage.value, templateType.value);
 
@@ -102,12 +101,6 @@ const translateText = async () => {
     </section>
 
     <section>
-<!--      <div class="row">-->
-<!--        <div class="col">-->
-<!--          <TextArea v-model="inputText" @update:text="saveText"/>-->
-<!--        </div>-->
-<!--      </div>-->
-
       <div class="row justify-content-center mt-3">
         <div class="col-auto">
           <LanguageSelector :language="targetLanguage" label="Target Language:"
