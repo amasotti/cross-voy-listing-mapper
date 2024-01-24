@@ -13,5 +13,5 @@ export const languages: Options[] = [
     {id: 2, value: SUPPORTED_LANGUAGES.EN, label: 'English'},
     // {id: 3, value: 'fr', label: 'French'},
     // {id: 4, value: 'de', label: 'German'},
-    {id: 5, value: SUPPORTED_LANGUAGES.RU, label: 'Russian'},
+    // {id: 5, value: SUPPORTED_LANGUAGES.RU, label: 'Russian'},
 ]

@@ -1,9 +1,6 @@
 import {SUPPORTED_LANGUAGES} from "@/constants/languages.ts";
-import {getSourceWikitext} from "@/services/fetch.service.ts";
 import {AbstractMapper} from "@/services/AbstractMapper.ts";
 import {SUPPORTED_TEMPLATE} from "@/types/template.ts";
-import {Template} from "@/services/models/Template.ts";
-
 
 export class EnglishMapper extends AbstractMapper {
 
@@ -20,7 +17,6 @@ export class EnglishMapper extends AbstractMapper {
             return null;
         }
 
-
         const templatesInArticle = this.extractTemplatesFromText(text);
         const wishedTemplate = this.filterTemplates(templatesInArticle, targetTemplate);
 
@@ -31,9 +27,16 @@ export class EnglishMapper extends AbstractMapper {
         const templateArray = this.buildTemplateArray(wishedTemplate);
         const mappedTemplates = this.mapTemplateArray(templateArray, targetLanguage);
 
-        let result = this.formatIT(mappedTemplates);
+        try {
+            let result = this.formatTemplateArray(mappedTemplates, targetLanguage);
 
-        return result;
+            return result;
+        }  catch (err) {
+            console.log(err);
+            return null;
+        }
+
+
     }
 
 

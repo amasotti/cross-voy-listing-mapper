@@ -22,22 +22,18 @@ const mappedText = ref("");
 // ------ HANDLERS ------
 
 const handleSourceLanguageChange = (newValue: SUPPORTED_LANGUAGES) => {
-  console.log("handleSourceLanguageChange", newValue);
   sourceLanguage.value = newValue;
 };
 
 const handleTargetLanguageChange = (newValue: SUPPORTED_LANGUAGES) => {
-  console.log("handleTargetLanguageChange", newValue);
   targetLanguage.value = newValue;
 };
 
 const handleTemplateChange = (newValue: SUPPORTED_TEMPLATE) => {
-  console.log("handleTemplateChange", newValue);
   templateType.value = newValue;
 };
 
 const handleArticleChange = (newValue: string) => {
-  console.log("handleArticleChange", newValue);
   articleTitle.value = newValue;
 };
 
@@ -54,13 +50,12 @@ const reset = () => {
 
 // ------ METHODS ------
 const translateText = async () => {
-  console.log("Trying to translate text");
 
   let mapper: AbstractMapper;
   try {
     mapper = chooseMapper(sourceLanguage.value)
   } catch (error) {
-    console.log("Error while choosing mapper", error);
+    console.error("Error while choosing mapper", error);
     mappedText.value = "Error -- Still working on this language. Be patient or help me ;)";
     return;
   }

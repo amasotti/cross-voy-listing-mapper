@@ -26,36 +26,58 @@ export abstract class AbstractMapper {
     }
 
 
-    protected extractTemplatesFromText(text:string): string[] {
+    protected extractTemplatesFromText(text) {
         const templates = [];
+        const nestedTemplates = [];
         let depth = 0;
         let startIndex = -1;
-        let endIndex = 0;
 
-        // first delete all empty spaces and new lines
-        text = text.replace(/(\r\n|\n|\r)/gm, "");
+        text = this.removeNewLinesAndSpaces(text);
+        text = this.handlePipedWikilinks(text);
 
-        // Now extract all templates, based on the depth of the brackets.
-        // A template always starts with '{{' and ends with '}}'
         for (let i = 0; i < text.length; i++) {
-            if (text[i] === '{' && text[i + 1] === '{') {
+            if (text.startsWith('{{', i)) {
                 depth++;
                 if (depth === 1) {
                     startIndex = i;
                 }
-                i++; // Skip next '{' as it's part of the current one
-            } else if (text[i] === '}' && text[i + 1] === '}') {
-                depth--;
-                if (depth === 0) {
-                    endIndex = i + 1;
-                    templates.push(text.substring(startIndex, endIndex + 1));
+                i++; // Skip next '{'
+            } else if (text.startsWith('}}', i)) {
+                if (depth === 1) {
+                    const templateContent = text.substring(startIndex, i + 2);
+                    templates.push(templateContent);
+                } else if (depth > 1) {
+                    const nestedContent = text.substring(startIndex, i + 2);
+                    nestedTemplates.push(nestedContent);
                 }
-                i++; // Skip next '}' as it's part of the current one
+                depth--;
+                i++; // Skip next '}'
             }
         }
 
-        return templates;
+        return this.removeNestedTemplates(templates, nestedTemplates);
     }
+
+    private removeNewLinesAndSpaces(text) {
+        return text.replace(/(\r\n|\n|\r)/gm, "");
+    }
+
+    private handlePipedWikilinks(text) {
+        return text.replace(/\[\[([^\]|]+)\|([^\]]+)\]\]/g, '$2');
+    }
+
+    private removeNestedTemplates(templates, nestedTemplates) {
+        return templates.map(template => {
+            nestedTemplates.forEach(nested => {
+                template = template.replace(nested, '__NESTED_TEMPLATE__');
+            });
+            return template;
+        });
+    }
+
+
+
+
 
     protected filterTemplates (templates: string[], targetTemplate: SUPPORTED_TEMPLATE): string[] {
 
@@ -101,17 +123,19 @@ export abstract class AbstractMapper {
         return new Template(template.type, mappedParams);
     }
 
-    /**
-     * TODO: Add a strategy to choose the right mapping file
-     * @param templates
-     * @protected
-     */
-    protected formatIT(templates: Template[]): string {
+
+    formatTemplateArray(templates: Template[], lang: SUPPORTED_LANGUAGES): string {
         let text = '';
-        for (const template of templates) {
-            text += template.formatIT()
+        try {
+            for (const template of templates) {
+                text += template.format(lang)
+            }
+            return text;
+        } catch (err) {
+            console.log(err);
+            throw new Error('Error while formatting template');
         }
-        return text;
+
     }
 
 

@@ -9,10 +9,6 @@ defineProps({
   text: {
     type: String,
     default: ''
-  },
-  template: {
-    type: String,
-    default: 'All templates'
   }
 });
 
@@ -21,11 +17,7 @@ defineProps({
 
 
 <template>
-  <!-- Add a heading for this section containing the template name  -->
-  <div  class="h3">{{template}}</div>
-
-
-  <div class="text-area-container">
+    <div class="text-area-container">
     <label for="outputText" class="text-area-label m-3">{{ label }}</label>
     <div id="outputText" class="text-area-output" >
       <pre>
@@ -57,6 +49,7 @@ defineProps({
   padding: 0.5rem;
   overflow: auto;
   min-height: 250px;
+  max-height: 500px;
   word-break: break-word; /* Ensures the text wraps within the div */
 }
 </style>

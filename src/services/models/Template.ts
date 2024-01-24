@@ -1,4 +1,5 @@
 import {SUPPORTED_TEMPLATE, TemplateParams} from "@/types/template.ts";
+import {SUPPORTED_LANGUAGES} from "@/constants/languages.ts";
 
 export class Template {
     type: SUPPORTED_TEMPLATE;
@@ -57,11 +58,21 @@ export class Template {
         const paramStrings = paramsString.split('|');
 
         for (const paramString of paramStrings) {
+            console.log(paramString)
             const [key, value] = paramString.split('=');
             params[key.trim()] = value.trim();
         }
 
         return params;
+    }
+
+    format(lang: SUPPORTED_LANGUAGES) : string {
+        switch (lang) {
+            case SUPPORTED_LANGUAGES.IT:
+                return this.formatIT();
+            default:
+                throw new Error(`No formatter for language ${lang} yet - be patient or help me!`);
+        }
     }
 
 
@@ -108,7 +119,7 @@ export class Template {
                     formattedString += '| ' + key + '= ' + ' ';
                 } else {
 
-                    if (key in ['orari', 'prezzo'] && this.type === SUPPORTED_TEMPLATE.SLEEP) {
+                    if (key in ['orari', 'prezzo'] && this.type !== SUPPORTED_TEMPLATE.SLEEP) {
                         formattedString += '| ' + key + '= ' + ' ';
                     }
                 }
