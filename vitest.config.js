@@ -10,6 +10,8 @@ export default defineConfig({
             'coverage/**/*',
             '.yarn/',
             './eslintrc.js',
+            'src/types/**/*',
+            'server.js',
         ],
         include: ['**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
         globals: true,
@@ -24,6 +26,9 @@ export default defineConfig({
                 'coverage/**/*',
                 '.yarn/',
                 './eslintrc.js',
+                'test/**/*',
+                'src/types/**/*',
+                'server.js',
             ],
             all: true,
             enabled: false,
@@ -35,7 +40,6 @@ export default defineConfig({
         mockReset: true,
         setupFiles: ['./test/setupTests.ts'],
         //environment: 'jsdom',
-        // @ts-ignore
         alias: readAliasFromTsConfig(),
     },
 });

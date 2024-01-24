@@ -8,15 +8,13 @@ import * as path from 'path';
 export default defineConfig({
   plugins: [vue()],
     build: {
-      outDir: './dist'
+    outDir: './dist',
+    manifest: true,
     },
   resolve: {
     alias: [
       { find: '@', replacement: path.resolve(__dirname, 'src') },
     ],
-  },
-  test: {
-    exclude: ['**/node_modules/**', '**/dist/**']
   },
   base: '/cross-voy-listing-mapper/'
 })

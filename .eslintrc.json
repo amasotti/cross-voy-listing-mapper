@@ -19,7 +19,9 @@
     ],
     "ignorePatterns": [
         "node_modules/",
-        "dist/"
+        "dist/",
+        "src/setupTests.ts",
+        "test/"
     ],
     "rules": {
     }

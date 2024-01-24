@@ -1,5 +1,5 @@
 import {SUPPORTED_LANGUAGES} from "@/constants/languages.ts";
-import {AbstractMapper} from "@/services/AbstractMapper.ts";
+import {AbstractMapper} from "@/services/mapper/AbstractMapper.ts";
 import {SUPPORTED_TEMPLATE} from "@/types/template.ts";
 
 export class EnglishMapper extends AbstractMapper {
@@ -17,7 +17,7 @@ export class EnglishMapper extends AbstractMapper {
             return null;
         }
 
-        const templatesInArticle = this.extractTemplatesFromText(text);
+        const templatesInArticle = this.parser.extractTemplatesFromText(text);
         const wishedTemplate = this.filterTemplates(templatesInArticle, targetTemplate);
 
         if (wishedTemplate.length === 0) {

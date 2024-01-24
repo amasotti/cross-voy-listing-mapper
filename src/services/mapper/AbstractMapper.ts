@@ -3,71 +3,24 @@ import {SUPPORTED_LANGUAGES} from "@/constants/languages.ts";
 import {getSourceWikitext} from "@/services/fetch.service.ts";
 import {Template} from "@/services/models/Template.ts";
 import listingMapping from "@/mapping/listing.json";
+import {WikitextParser} from "@/services/parser/WikitextParser.ts";
 
 export abstract class AbstractMapper {
     protected lang: SUPPORTED_LANGUAGES;
+    parser = new WikitextParser();
 
     async getText(article: string): Promise<string | null> {
         const rawText = await getSourceWikitext(article, this.lang);
-        return rawText ? this.cleanText(rawText) : null;
+        return rawText ? this.parser.cleanText(rawText) : null;
     }
 
-    private cleanText(text: string): string {
-        return this.handlePipedWikilinks(this.removeNewLinesAndSpaces(text));
-    }
 
-    protected buildTemplateArray(templates: string[]): Template[] {
+    buildTemplateArray(templates: string[]): Template[] {
         return templates.map(template => Template.parse(template));
     }
 
-    protected extractTemplatesFromText(text) {
-        const templates = [];
-        const nestedTemplates = [];
-        let depth = 0;
-        let startIndex = -1;
 
-        text = this.removeNewLinesAndSpaces(text);
-        text = this.handlePipedWikilinks(text);
 
-        for (let i = 0; i < text.length; i++) {
-            if (text.startsWith('{{', i)) {
-                depth++;
-                if (depth === 1) {
-                    startIndex = i;
-                }
-                i++; // Skip next '{'
-            } else if (text.startsWith('}}', i)) {
-                if (depth === 1) {
-                    const templateContent = text.substring(startIndex, i + 2);
-                    templates.push(templateContent);
-                } else if (depth > 1) {
-                    const nestedContent = text.substring(startIndex, i + 2);
-                    nestedTemplates.push(nestedContent);
-                }
-                depth--;
-                i++; // Skip next '}'
-            }
-        }
-
-        return this.removeNestedTemplates(templates, nestedTemplates);
-    }
-
-    private removeNewLinesAndSpaces(text) {
-        return text.replace(/(\r\n|\n|\r)/gm, "");
-    }
-
-    private handlePipedWikilinks(text) {
-        return text.replace(/\[\[([^\]|]+)\|([^\]]+)\]\]/g, '$2');
-    }
-
-    private removeNestedTemplates(templates, nestedTemplates) {
-        return templates.map(template => {
-            nestedTemplates.forEach(nested => {
-                template = template.replace(nested, '__NESTED_TEMPLATE__');
-            });
-            return template;
-        });
-    }
 
 
     protected filterTemplates (templates: string[], targetTemplate: SUPPORTED_TEMPLATE): string[] {

@@ -34,7 +34,7 @@ export class Template {
         if (endIndex === -1) {
             throw new Error('Template type not found');
         }
-        const templateType = template.substring(startIndex, endIndex).trim();
+        const templateType = template.substring(startIndex, endIndex).trim().toLowerCase();
 
         // If templateType is not a value of the enum SUPPORTED_TEMPLATE, throw an error
         if (!Object.values(SUPPORTED_TEMPLATE).includes(templateType as SUPPORTED_TEMPLATE)) {
