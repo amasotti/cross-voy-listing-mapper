@@ -6,6 +6,7 @@ export enum SUPPORTED_TEMPLATE {
     DRINK = 'drink',
     EAT = 'eat',
     DO = 'do',
+    BUY = 'buy',
 }
 
 export type TemplateMapper = (template: Template, sourceLang: string, targetLang: string) => Template;

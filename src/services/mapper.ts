@@ -17,6 +17,12 @@ export const mapText = (text: string, sourceLang: string, targetLang: string): s
     return joinTemplatesToString(mappedTemplates);
 }
 
+export const map2 = (text: string, sourceLang: string, targetLang: string, templateName: SUPPORTED_TEMPLATE): string => {
+    const templates = extractTemplatesFromText(text);
+    const filteredTemplates = filterTemplates(templates, templateName);
+    return filteredTemplates.join('\n');
+}
+
 const extractTemplatesFromText = (text:string): string[] => {
     const templates = [];
     let depth = 0;
@@ -48,6 +54,19 @@ const extractTemplatesFromText = (text:string): string[] => {
     return templates;
 }
 
+const filterTemplates = (templates: string[], targetTemplate: SUPPORTED_TEMPLATE): string[] => {
+
+    const filteredTemplates = [];
+    console.log("Searching for template: " + targetTemplate)
+    for (const template of templates) {
+        const templateName = template.substring(2, template.indexOf('|'));
+        if (templateName.trim().toLowerCase() === targetTemplate.toLowerCase()) {
+            filteredTemplates.push(template);
+        }
+    }
+    return filteredTemplates;
+}
+
 
 const setMappingStrategy = (templateType: SUPPORTED_TEMPLATE): TemplateMapper => {
     switch (templateType) {
@@ -56,6 +75,7 @@ const setMappingStrategy = (templateType: SUPPORTED_TEMPLATE): TemplateMapper =>
         case SUPPORTED_TEMPLATE.DRINK:
         case SUPPORTED_TEMPLATE.EAT:
         case SUPPORTED_TEMPLATE.DO:
+        case SUPPORTED_TEMPLATE.BUY:
             return mapListing;
         default:
             throw new Error('Template type not supported');

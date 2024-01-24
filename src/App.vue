@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import Main from "./views/Main.vue";
+import Main from "./views/Main2.vue";
 
 
 </script>

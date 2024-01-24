@@ -2,7 +2,7 @@
 import {languages, SUPPORTED_LANGUAGES} from "../constants/languages";
 import { ref, watch} from "vue";
 
-defineProps({
+const props = defineProps({
   label: {
     type: String,
     default: "Language:"
@@ -13,7 +13,7 @@ defineProps({
   }
 });
 
-const chosenLanguage = ref(SUPPORTED_LANGUAGES.EN);
+const chosenLanguage = ref(props.language);
 
 const emit = defineEmits(['update:language'])
 watch(chosenLanguage, (newValue) => {

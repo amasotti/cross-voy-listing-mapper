@@ -5,6 +5,7 @@ import sleepMapping from "@/mapping/sleep.json";
 import drinkMapping from "@/mapping/drink.json";
 import eatMapping from "@/mapping/eat.json";
 import doMapping from "@/mapping/do.json";
+import buyMapping from "@/mapping/buy.json";
 
 
 const chooseMappingFile = (templateType: string): any => {
@@ -19,6 +20,9 @@ const chooseMappingFile = (templateType: string): any => {
             return eatMapping;
         case SUPPORTED_TEMPLATE.DO:
             return doMapping;
+        case SUPPORTED_TEMPLATE.BUY:
+            return buyMapping;
+
         default:
             throw new Error('Template type not supported');
     }
@@ -33,11 +37,9 @@ export const mapListing = (template: Template, sourceLang: string, targetLang: s
 
     // Collect all the keys mappings where the target language value is not NOT_AVAILABLE
     const keys = Object.keys(mappingJson).filter(key => mappingJson[key][targetLang] !== 'NOT_AVAILABLE');
-    console.log("Available keys: " + keys);
 
     // @ts-ignore
     for (const entry of Object.entries(template.params)) {
-        console.log(Object.keys(template.params));
 
         for (const key of keys) {
             const foreignKey = mappingJson[key][sourceLang];
