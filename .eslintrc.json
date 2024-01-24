@@ -22,7 +22,8 @@
         "dist/",
         "src/setupTests.ts",
         "test/",
-        "main.ts"
+        "main.ts",
+        "server.js"
     ],
     "rules": {
         "@typescript-eslint/ban-ts-comment": "off"
