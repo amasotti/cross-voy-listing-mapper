@@ -28,9 +28,7 @@ export class EnglishMapper extends AbstractMapper {
         const mappedTemplates = this.mapTemplateArray(templateArray, targetLanguage);
 
         try {
-            let result = this.formatTemplateArray(mappedTemplates, targetLanguage);
-
-            return result;
+            return this.formatTemplateArray(mappedTemplates, targetLanguage);
         }  catch (err) {
             console.log(err);
             return null;
