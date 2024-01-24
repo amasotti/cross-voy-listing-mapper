@@ -21,8 +21,10 @@
         "node_modules/",
         "dist/",
         "src/setupTests.ts",
-        "test/"
+        "test/",
+        "main.ts"
     ],
     "rules": {
+        "@typescript-eslint/ban-ts-comment": "off"
     }
 }

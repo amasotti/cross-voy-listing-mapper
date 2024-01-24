@@ -42,7 +42,6 @@ const copyToClipboard = () => {
 };
 
 const reset = () => {
-  articleTitle.value = "";
   mappedText.value = "";
 };
 
