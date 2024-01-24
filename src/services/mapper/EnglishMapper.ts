@@ -5,8 +5,7 @@ import {SUPPORTED_TEMPLATE} from "@/types/template.ts";
 export class EnglishMapper extends AbstractMapper {
 
     constructor() {
-        super();
-        this.lang = SUPPORTED_LANGUAGES.EN;
+        super(SUPPORTED_LANGUAGES.EN);
     }
 
 

@@ -4,10 +4,17 @@ import {getSourceWikitext} from "@/services/fetch.service.ts";
 import {Template} from "@/services/models/Template.ts";
 import listingMapping from "@/mapping/listing.json";
 import {WikitextParser} from "@/services/parser/WikitextParser.ts";
+import {ListingParams, ParamLocalLabel} from "@/types/listing.ts";
 
 export abstract class AbstractMapper {
     protected lang: SUPPORTED_LANGUAGES;
     parser = new WikitextParser();
+    private readonly NON_AVAILABLE_LABEL = 'NOT_AVAILABLE';
+
+    protected constructor(lang: SUPPORTED_LANGUAGES) {
+        this.lang = lang;
+    }
+
 
     async getText(article: string): Promise<string | null> {
         const rawText = await getSourceWikitext(article, this.lang);
@@ -50,6 +57,7 @@ export abstract class AbstractMapper {
 
         for (const [key, value] of Object.entries(template.params)) {
             if (keysToMap.has(key)) {
+                // @ts-ignore
                 mappedParams[listingMapping[key][targetLanguage]] = value;
             }
         }
@@ -58,7 +66,18 @@ export abstract class AbstractMapper {
     }
 
     private getKeysToMap(targetLanguage: SUPPORTED_LANGUAGES): Set<string> {
-        return new Set(Object.keys(listingMapping).filter(key => listingMapping[key][targetLanguage] !== 'NOT_AVAILABLE'));
+
+        // @ts-ignore
+        const filteredKeys = Object.keys(listingMapping as ListingParams).filter(
+            key => {
+                // @ts-ignore
+                const keyMapping: ParamLocalLabel = listingMapping[key];
+                const mappedKey: string = keyMapping[targetLanguage];
+                return (mappedKey as string) !== this.NON_AVAILABLE_LABEL
+            }
+        );
+
+        return new Set(filteredKeys);
     }
 
 
@@ -77,6 +96,6 @@ export abstract class AbstractMapper {
     }
 
 
-    abstract async map(article: string, targetLanguage:SUPPORTED_LANGUAGES, template:SUPPORTED_TEMPLATE): Promise<string | null>;
+    abstract map(article: string, targetLanguage:SUPPORTED_LANGUAGES, template:SUPPORTED_TEMPLATE): Promise<string | null>;
 
 }

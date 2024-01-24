@@ -6,15 +6,15 @@ export class WikitextParser {
         return this.handlePipedWikilinks(this.removeNewLinesAndSpaces(text));
     }
 
-    removeNewLinesAndSpaces(text) {
+    removeNewLinesAndSpaces(text: string) {
         return text.replace(/(\r\n|\n|\r)/gm, "");
     }
 
-    handlePipedWikilinks(text) {
+    handlePipedWikilinks(text: string) {
         return text.replace(/\[\[([^\]|]+)\|([^\]]+)\]\]/g, '$2');
     }
 
-    extractTemplatesFromText(text): string[] {
+    extractTemplatesFromText(text: string): string[] {
         const templateStrings = [];
         const nestedTemplateStrings = [];
         let depth = 0;
@@ -52,7 +52,7 @@ export class WikitextParser {
      * @param {string[]} nestedTemplateStrings - The array of nested templates to remove from the template strings.
      * @return {string[]} - The array of template strings with nested templates removed.
      */
-    private removeNestedTemplates(templateStrings, nestedTemplateStrings): string[] {
+    private removeNestedTemplates(templateStrings: string[], nestedTemplateStrings: string[]): string[] {
         return templateStrings.map(templateString => {
             nestedTemplateStrings.forEach(nested => {
                 templateString = templateString.replace(nested, '__NESTED_TEMPLATE__');
