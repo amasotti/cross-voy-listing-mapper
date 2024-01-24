@@ -1,0 +1,17 @@
+{
+  "index.html": {
+    "assets": [
+      "assets/voy_bot-RBV_6vcq.png"
+    ],
+    "css": [
+      "assets/index-vokWgykC.css"
+    ],
+    "file": "assets/index-1_qlACYk.js",
+    "isEntry": true,
+    "src": "index.html"
+  },
+  "src/assets/voy_bot.png": {
+    "file": "assets/voy_bot-RBV_6vcq.png",
+    "src": "src/assets/voy_bot.png"
+  }
+}
