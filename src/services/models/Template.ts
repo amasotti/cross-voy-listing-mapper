@@ -63,4 +63,69 @@ export class Template {
 
         return params;
     }
+
+
+    formatIT(): string {
+        let formattedString = '* {{' + this.type + '\n';
+
+        // First line: nome, alt, sito, email if available, all on the same line
+        for (const key of ['nome', 'alt', 'sito', 'email']) {
+            if (this.params[key]) {
+                formattedString += '| ' + key + '= ' + this.params[key] + ' ';
+            }
+        }
+        formattedString += '\n';
+
+        // Then indirizzo, lat, long, indicazioni
+        for (const key of ['indirizzo', 'lat', 'long', 'indicazioni']) {
+            if (this.params[key]) {
+                formattedString += '| ' + key + '= ' + this.params[key] + ' ';
+            } else {
+                formattedString += '| ' + key + '= ' + ' ';
+            }
+        }
+        formattedString += '\n';
+
+        // then tel, numero verde, fax
+        for (const key of ['tel', 'numero verde', 'fax']) {
+            if (this.params[key]) {
+                formattedString += '| ' + key + '= ' + this.params[key] + ' ';
+            } else {
+                formattedString += '| ' + key + '= ' + ' ';
+            }
+        }
+        formattedString += '\n';
+
+        // then orari, prezzo
+        for (const key of ['orari', 'checkin', 'checkout', 'prezzo']) {
+            if (this.params[key]) {
+                formattedString += '| ' + key + '= ' + this.params[key] + ' ';
+            } else {
+                // checkin and checkout are only for SLEEP which doesn't have orari
+                // Other types will include instead orari and prezzo but not checkin and checkout
+
+                if ((key === 'checkin' || key === 'checkout') && this.type === SUPPORTED_TEMPLATE.SLEEP) {
+                    formattedString += '| ' + key + '= ' + ' ';
+                } else {
+
+                    if (key in ['orari', 'prezzo'] && this.type === SUPPORTED_TEMPLATE.SLEEP) {
+                        formattedString += '| ' + key + '= ' + ' ';
+                    }
+                }
+            }
+        }
+        formattedString += '\n';
+
+        // then descrizione
+        if (this.params['descrizione']) {
+            formattedString += '| descrizione= ' + this.params['descrizione'] + ' ';
+        } else {
+            formattedString += '| descrizione= ' + ' ';
+        }
+
+        formattedString += '\n}}\n';
+
+        return formattedString;
+    }
+
 }

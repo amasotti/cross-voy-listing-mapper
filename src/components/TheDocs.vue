@@ -7,7 +7,7 @@
   <div class="banner-container">
     <img src="@/assets/voy_bot.png" alt="App Logo" class="logo" />
     <div class="text-content">
-      <h1 class="heading">Template Translator</h1>
+      <h1 class="heading">Listing Mapper</h1>
       <p class="description">
         This is a small utility born out of a <a href="https://it.wikivoyage.org/w/index.php?title=Discussioni_utente:Codas&oldid=820893#Citt%C3%A0_Magiche">short discussion</a> on Italian Wikivoyage to
         have a easy (although not beautiful) way to translate wikivoyage templates from one language to another. It does <span class="fw-bold">not</span> translate the text inside the template, 

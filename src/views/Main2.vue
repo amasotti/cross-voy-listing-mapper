@@ -12,6 +12,7 @@ import {SUPPORTED_TEMPLATE} from "@/types/template.ts";
 import {SUPPORTED_LANGUAGES} from "@/constants/languages.ts";
 import {getSourceWikitext} from "@/services/fetch.service.ts";
 import TitleInput from "@/components/TitleInput.vue";
+import {EnglishMapper} from "@/services/EnglishMapper.ts";
 
 const sourceLanguage = ref(SUPPORTED_LANGUAGES.EN);
 const targetLanguage = ref(SUPPORTED_LANGUAGES.IT);
@@ -60,12 +61,19 @@ const reset = () => {
 // ------ METHODS ------
 const translateText = async () => {
   console.log("Trying to translate text");
-  const test = await getSourceWikitext(inputText.value, sourceLanguage.value)
 
-  const filteredT = map2(test, templateType.value, targetLanguage.value, templateType.value)
+  // TODO: add a strategy to select the right mapper
+  const mapper = new EnglishMapper();
 
-  mappedText.value = mapText(filteredT, sourceLanguage.value, targetLanguage.value)
-  //mappedText.value = "translated text";
+
+  const res = await mapper.map(articleTitle.value, targetLanguage.value, templateType.value);
+
+  if (res) {
+    mappedText.value = res;
+  }
+  else {
+    mappedText.value = "Error -- Mapping failed";
+  }
 };
 
 </script>
@@ -88,7 +96,7 @@ const translateText = async () => {
           <TemplateSelector v-model="templateType" @update:template="handleTemplateChange"/>
         </div>
         <div class="col-auto">
-          <TitleInput @update:text="handleArticleChange"/>
+          <TitleInput @update:articleName="handleArticleChange"/>
         </div>
       </div>
     </section>

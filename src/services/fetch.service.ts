@@ -7,7 +7,7 @@ export const getSourceWikitext = async (article: string, language: SUPPORTED_LAN
     const resp = await api.getSource(article);
 
     if (!resp) {
-        return "Error fetching source";
+        return "";
     }
 
     return resp.data.source;
