@@ -14,13 +14,6 @@ export class Template {
         this.params = params;
     }
 
-    // toString(): string {
-    //     const paramsString = Object.entries(this.params)
-    //         .map(([key, value]) => `${addSpaces(Template.PARAM_SEPARATOR, 1, 1)}${key}${addSpaces(Template.PARAM_VALUE_SEPARATOR, 1)}${value}`)
-    //         .join('');
-    //     return `* ${Template.TEMPLATE_START}${this.type}${paramsString}${Template.TEMPLATE_END}\n\n`;
-    // }
-
     static parse(template: string): Template {
             const templateType = Template.extractTemplateType(template);
             const params = Template.extractTemplateParams(template);
