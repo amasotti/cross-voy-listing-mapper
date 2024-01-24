@@ -29,6 +29,8 @@ export default defineConfig({
                 'test/**/*',
                 'src/types/**/*',
                 'server.js',
+                "src/components/**/*", // For now, we don't test components
+                "src/views/**/*", // For now, we don't test containers
             ],
             all: true,
             enabled: false,

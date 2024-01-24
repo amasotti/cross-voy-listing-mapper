@@ -1,6 +1,6 @@
 import {SUPPORTED_LANGUAGES} from "@/constants/languages.ts";
-import {AbstractMapper} from "@/services/AbstractMapper.ts";
-import {EnglishMapper} from "@/services/EnglishMapper.ts";
+import {AbstractMapper} from "@/services/mapper/AbstractMapper.ts";
+import {EnglishMapper} from "@/services/mapper/EnglishMapper.ts";
 
 
 export const chooseMapper = (lang: SUPPORTED_LANGUAGES): AbstractMapper => {

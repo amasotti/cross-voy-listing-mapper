@@ -9,8 +9,8 @@ import TheDocs from "@/components/TheDocs.vue";
 import {SUPPORTED_TEMPLATE} from "@/types/template.ts";
 import {SUPPORTED_LANGUAGES} from "@/constants/languages.ts";
 import TitleInput from "@/components/TitleInput.vue";
-import {chooseMapper} from "@/services/mapper.strategy.ts";
-import {AbstractMapper} from "@/services/AbstractMapper.ts";
+import {chooseMapper} from "@/services/mapper/mapper.strategy.ts";
+import {AbstractMapper} from "@/services/mapper/AbstractMapper.ts";
 
 const sourceLanguage = ref(SUPPORTED_LANGUAGES.EN);
 const targetLanguage = ref(SUPPORTED_LANGUAGES.IT);
@@ -40,7 +40,6 @@ const handleArticleChange = (newValue: string) => {
 const copyToClipboard = () => {
   navigator.clipboard.writeText(mappedText.value);
 };
-
 
 const reset = () => {
   articleTitle.value = "";
