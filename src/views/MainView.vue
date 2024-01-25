@@ -117,7 +117,7 @@ const translateText = async () => {
 
     <section>
       <div v-if="permalink" class="row justify-content-center mt-3">
-        <PermalinkHint/>
+        <PermalinkHint :permalink="permalink"/>
       </div>
       <div class="row">
         <div class="col">
