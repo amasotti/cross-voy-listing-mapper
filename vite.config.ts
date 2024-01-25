@@ -1,15 +1,14 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import { Alias, defineConfig } from 'vite';
-import * as tsconfig from './tsconfig.path.json';
+import {  defineConfig } from 'vite';
 import * as path from 'path';
+import tsconfigPaths from 'vite-tsconfig-paths'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [vue(), tsconfigPaths()],
     build: {
     outDir: './dist',
-    manifest: true,
     },
   resolve: {
     alias: [
@@ -18,19 +17,3 @@ export default defineConfig({
   },
   base: '/cross-voy-listing-mapper/'
 })
-
-
-export function readAliasFromTsConfig(): Alias[] {
-  const pathReplaceRegex = new RegExp(/\/\*$/, '');
-
-  return Object.entries(tsconfig.compilerOptions.paths).reduce(
-      (aliases, [fromPaths, toPaths]) => {
-        const find = fromPaths.replace(pathReplaceRegex, '');
-        const toPath = toPaths[0].replace(pathReplaceRegex, '');
-        const replacement = path.resolve(__dirname, toPath);
-        aliases.push({ find, replacement });
-        return aliases;
-      },
-      [] as Alias[]
-  );
-}

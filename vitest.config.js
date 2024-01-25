@@ -1,5 +1,4 @@
 import { defineConfig } from 'vitest/config';
-import {readAliasFromTsConfig} from "./vite.config.js";
 
 /// <reference types="vitest" />
 export default defineConfig({
@@ -42,6 +41,8 @@ export default defineConfig({
         mockReset: true,
         setupFiles: ['./test/setupTests.ts'],
         //environment: 'jsdom',
-        alias: readAliasFromTsConfig(),
+        alias: {
+            '@/': new URL('./src/', import.meta.url).pathname,
+},
     },
 });

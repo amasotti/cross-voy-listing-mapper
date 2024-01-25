@@ -1,23 +1,28 @@
 import {SUPPORTED_TEMPLATE, TemplateParams} from "@/types/template.ts";
 import {SUPPORTED_LANGUAGES} from "@/constants/languages.ts";
-import {getSourceWikitext} from "@/services/fetch.service.ts";
+import FetchService from "@/services/fetch.service.ts";
 import {Template} from "@/services/models/Template.ts";
 import listingMapping from "@/mapping/listing.json";
 import {WikitextParser} from "@/services/parser/WikitextParser.ts";
 import {ListingParams, ParamLocalLabel} from "@/types/listing.ts";
+import {MediaWikiAPI} from "@/services/api/mediawiki.api.ts";
 
 export abstract class AbstractMapper {
     protected lang: SUPPORTED_LANGUAGES;
     parser = new WikitextParser();
     private readonly NON_AVAILABLE_LABEL = 'NOT_AVAILABLE';
+    private fetchservice: FetchService;
+    private api: MediaWikiAPI;
 
     protected constructor(lang: SUPPORTED_LANGUAGES) {
         this.lang = lang;
+        this.api = new MediaWikiAPI(lang)
+        this.fetchservice = new FetchService(this.api, lang);
     }
 
 
     async getText(article: string): Promise<string | null> {
-        const rawText = await getSourceWikitext(article, this.lang);
+        const rawText = await this.fetchservice.getSourceWikitext(article);
         return rawText ? this.parser.cleanText(rawText) : null;
     }
 
@@ -57,7 +62,6 @@ export abstract class AbstractMapper {
 
         keysToMap.forEach(
             key => {
-                console.log("Mapping key: " + key)
                 // @ts-ignore
                 const keyMapping: ParamLocalLabel = listingMapping[key];
                 const mappedKey: string = keyMapping[targetLanguage];

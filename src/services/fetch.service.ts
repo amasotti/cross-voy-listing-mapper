@@ -2,13 +2,32 @@ import {SUPPORTED_LANGUAGES} from "@/constants/languages.ts";
 import {MediaWikiAPI} from "@/services/api/mediawiki.api.ts";
 
 
-export const getSourceWikitext = async (article: string, language: SUPPORTED_LANGUAGES): Promise<string> => {
-    const api = new MediaWikiAPI(language);
-    const resp = await api.getSource(article);
+class FetchService {
 
-    if (!resp) {
-        return "";
+    constructor(private api: MediaWikiAPI = new MediaWikiAPI(), private lang: SUPPORTED_LANGUAGES = SUPPORTED_LANGUAGES.EN) {}
+
+    async getSourceWikitext(article: string): Promise<string> {
+        const resp = await this.api.getSource(article);
+
+        if (!resp) {
+            return "";
+        }
+
+        return resp.data.source;
     }
 
-    return resp.data.source;
+    async getLastRevionUrl(article: string): Promise<string> {
+        const resp = await this.api.getSource(article);
+
+        if (!resp) {
+            return "";
+        }
+
+        const revision = resp.data.latest.id;
+
+        return `https://${this.lang}.wikivoyage.org/w/index.php?title=${article}&oldid=${revision}`;
+    }
+
 }
+
+export default FetchService;

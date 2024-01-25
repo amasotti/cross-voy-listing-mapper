@@ -1,8 +1,9 @@
 import {vi} from "vitest";
-import {AbstractMapper} from "@/services/mapper/AbstractMapper";
-import {Template} from "@/services/models/Template";
-import {SUPPORTED_LANGUAGES} from "@/constants/languages";
-import {SUPPORTED_TEMPLATE} from "@/types/template";
+
+import {Template} from "../../../src/services/models/Template";
+import {SUPPORTED_LANGUAGES} from "../../../src/constants/languages";
+import {SUPPORTED_TEMPLATE} from "../../../src/types/template";
+import {AbstractMapper} from "../../../src/services/mapper/AbstractMapper";
 
 
 let abstractMapper: AbstractMapper;

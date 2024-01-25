@@ -1,7 +1,8 @@
 import { test } from "vitest"
-import {SUPPORTED_TEMPLATE, TemplateParams} from "@/types/template";
-import {SUPPORTED_LANGUAGES} from "@/constants/languages";
+import {SUPPORTED_TEMPLATE, TemplateParams} from "../src/types/template";
+import {SUPPORTED_LANGUAGES} from "../src/constants/languages";
 import {Template} from "../src/services/models/Template";
+
 
 describe('Template Class - constructor', () => {
 
@@ -18,11 +19,6 @@ describe('Template Class - constructor', () => {
     });
 
 
-
-
-
-
-
 test('Template Class - format function', () => {
     const params: TemplateParams = { name: "John" };
     const template = new Template(SUPPORTED_TEMPLATE.SEE, params);
@@ -32,7 +28,7 @@ test('Template Class - format function', () => {
         "| indirizzo=  | lat=  | long=  | indicazioni=  \n" +
         "| tel=  | numero verde=  | fax=  \n" +
         "| orari=  | prezzo=  \n" +
-        "| wikidata=  | immagine=  \n" +
+        "| wikidata=  \n" +
         "| descrizione=  \n" +
         "}}\n";
     expect(template.format(SUPPORTED_LANGUAGES.IT)).toBe(expectedResult);
@@ -47,7 +43,7 @@ test('Template Class - format Hotels', () => {
         "| indirizzo=  | lat=  | long=  | indicazioni=  \n" +
         "| tel=  | numero verde=  | fax=  \n" +
         "| checkin=  | checkout=  | prezzo=  \n" +
-        "| wikidata=  | immagine=  \n" +
+        "| wikidata=  \n" +
         "| descrizione=  \n" +
         "}}\n";
     expect(template.format(SUPPORTED_LANGUAGES.IT)).toBe(expectedResult);

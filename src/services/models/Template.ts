@@ -75,14 +75,14 @@ export class Template {
             ['indirizzo', 'lat', 'long', 'indicazioni'],
             ['tel', 'numero verde', 'fax'],
             ['orari', 'prezzo'],
-            ['wikidata', 'immagine'],
+            ['wikidata'],
             ['descrizione']
         ] : [
             ['nome', 'alt', 'sito', 'email'],
             ['indirizzo', 'lat', 'long', 'indicazioni'],
             ['tel', 'numero verde', 'fax'],
             ['checkin', 'checkout', 'prezzo'],
-            ['wikidata', 'immagine'],
+            ['wikidata'],
             ['descrizione']
         ];
 
