@@ -17,7 +17,7 @@ export abstract class AbstractMapper {
     protected constructor(lang: SUPPORTED_LANGUAGES) {
         this.lang = lang;
         this.api = new MediaWikiAPI(lang)
-        this.fetchservice = new FetchService(this.api, lang);
+        this.fetchservice = new FetchService(lang);
     }
 
 

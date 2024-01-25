@@ -18,7 +18,6 @@ export class MediaWikiAPI {
         try {
             const url = `${this.baseUrl}/${article}`;
             const response = await axios.get(url);
-            console.log(response)
             return response;
         } catch (error) {
             console.error(error);

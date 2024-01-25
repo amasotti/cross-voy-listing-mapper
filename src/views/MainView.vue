@@ -11,13 +11,16 @@ import {SUPPORTED_LANGUAGES} from "@/constants/languages.ts";
 import TitleInput from "@/components/TitleInput.vue";
 import {chooseMapper} from "@/services/mapper/mapper.strategy.ts";
 import {AbstractMapper} from "@/services/mapper/AbstractMapper.ts";
+import FetchService from "@/services/fetch.service.ts";
+import PermalinkHint from "@/components/PermalinkHint.vue";
 
-const sourceLanguage = ref(SUPPORTED_LANGUAGES.EN);
-const targetLanguage = ref(SUPPORTED_LANGUAGES.IT);
-const templateType = ref(SUPPORTED_TEMPLATE.SEE);
-const articleTitle = ref("");
+const sourceLanguage = ref<SUPPORTED_LANGUAGES>(SUPPORTED_LANGUAGES.EN);
+const targetLanguage = ref<SUPPORTED_LANGUAGES>(SUPPORTED_LANGUAGES.IT);
+const templateType = ref<SUPPORTED_TEMPLATE>(SUPPORTED_TEMPLATE.SEE);
+const articleTitle = ref<string>("");
 
-const mappedText = ref("");
+const mappedText = ref<string>("");
+const permalink = ref<string>("");
 
 // ------ HANDLERS ------
 
@@ -34,7 +37,9 @@ const handleTemplateChange = (newValue: SUPPORTED_TEMPLATE) => {
 };
 
 const handleArticleChange = (newValue: string) => {
-  articleTitle.value = newValue;
+  // Encode for URL for cases like "Edinburgh/Leith" containing a slash or "Côte d'Azur" containing a special character
+  const encodedArticle = encodeURIComponent(newValue);
+  articleTitle.value = encodedArticle;
 };
 
 const copyToClipboard = () => {
@@ -43,6 +48,7 @@ const copyToClipboard = () => {
 
 const reset = () => {
   mappedText.value = "";
+  permalink.value = "";
 };
 
 
@@ -62,6 +68,9 @@ const translateText = async () => {
 
   if (res) {
     mappedText.value = res;
+    const fetchService = new FetchService(sourceLanguage.value);
+    const url = await fetchService.getLastRevionUrl(articleTitle.value);
+    permalink.value = url;
   }
   else {
     mappedText.value = "Error -- Mapping failed";
@@ -107,6 +116,9 @@ const translateText = async () => {
 
 
     <section>
+      <div v-if="permalink" class="row justify-content-center mt-3">
+        <PermalinkHint/>
+      </div>
       <div class="row">
         <div class="col">
           <OutputText :text="mappedText" label="Mapped text"/>

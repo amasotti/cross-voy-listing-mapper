@@ -3,8 +3,11 @@ import {MediaWikiAPI} from "@/services/api/mediawiki.api.ts";
 
 
 class FetchService {
+    private api: MediaWikiAPI;
 
-    constructor(private api: MediaWikiAPI = new MediaWikiAPI(), private lang: SUPPORTED_LANGUAGES = SUPPORTED_LANGUAGES.EN) {}
+    constructor(private lang: SUPPORTED_LANGUAGES = SUPPORTED_LANGUAGES.EN) {
+        this.api = new MediaWikiAPI(lang);
+    }
 
     async getSourceWikitext(article: string): Promise<string> {
         const resp = await this.api.getSource(article);
