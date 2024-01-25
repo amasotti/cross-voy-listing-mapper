@@ -1,13 +1,11 @@
 
 <script setup lang="ts">
 
-import {PropType} from "vue";
-
 defineProps({
   permalink: {
     required: false,
     default: "",
-  } as PropType<string>,
+  }
 })
 </script>
 
