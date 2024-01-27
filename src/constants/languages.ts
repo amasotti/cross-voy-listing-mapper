@@ -11,7 +11,7 @@ export enum SUPPORTED_LANGUAGES {
 export const languages: Options[] = [
     {id: 1, value: SUPPORTED_LANGUAGES.IT, label: 'Italian'},
     {id: 2, value: SUPPORTED_LANGUAGES.EN, label: 'English'},
-    // {id: 3, value: 'fr', label: 'French'},
-    // {id: 4, value: 'de', label: 'German'},
+    {id: 3, value: SUPPORTED_LANGUAGES.DE, label: 'German'},
+    // {id: 4, value: 'fr', label: 'French'},
     // {id: 5, value: SUPPORTED_LANGUAGES.RU, label: 'Russian'},
 ]

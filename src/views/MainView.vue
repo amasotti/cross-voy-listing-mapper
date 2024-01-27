@@ -57,7 +57,8 @@ const translateText = async () => {
 
   let mapper: AbstractMapper;
   try {
-    mapper = chooseMapper(sourceLanguage.value)
+    //mapper = chooseMapper(sourceLanguage.value)
+    mapper = chooseMapper(SUPPORTED_LANGUAGES.DE);
   } catch (error) {
     console.error("Error while choosing mapper", error);
     mappedText.value = "Error -- Still working on this language. Be patient or help me ;)";
@@ -68,7 +69,7 @@ const translateText = async () => {
 
   if (res) {
     mappedText.value = res;
-    const fetchService = new FetchService(sourceLanguage.value);
+    const fetchService = new FetchService(SUPPORTED_LANGUAGES.DE);
     const url = await fetchService.getLastRevionUrl(articleTitle.value);
     permalink.value = url;
   }

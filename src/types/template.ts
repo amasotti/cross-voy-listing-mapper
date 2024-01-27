@@ -5,6 +5,7 @@ export enum SUPPORTED_TEMPLATE {
     EAT = 'eat',
     DO = 'do',
     BUY = 'buy',
+    VCARD = 'vcard',
 }
 
 export interface TemplateParams {

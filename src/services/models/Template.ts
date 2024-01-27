@@ -37,7 +37,7 @@ export class Template {
         const templateType = template.substring(startIndex, endIndex).trim().toLowerCase();
 
         // If templateType is not a value of the enum SUPPORTED_TEMPLATE, throw an error
-        if (!Object.values(SUPPORTED_TEMPLATE).includes(templateType as SUPPORTED_TEMPLATE)) {
+        if (!Object.values(SUPPORTED_TEMPLATE).includes(templateType as SUPPORTED_TEMPLATE) || templateType === 'vcard') {
             throw new Error(`Unsupported template type: ${templateType}`);
         }
 
