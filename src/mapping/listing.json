@@ -2,91 +2,133 @@
   "name": {
     "en": "name",
     "it": "nome",
-    "ru": "name"
+    "ru": "name",
+    "de": "name"
   },
   "alt": {
     "en": "alt",
     "it": "alt",
-    "ru": "alt"
+    "ru": "alt",
+    "de": "alt"
+  },
+  "native_name": {
+    "en": "alt",
+    "it": "alt",
+    "ru": "NOT_AVAILABLE",
+    "de": "name-local"
+  },
+  "comment": {
+    "en": "alt",
+    "it": "alt",
+    "ru": "NOT_AVAILABLE",
+    "de": "comment"
   },
   "url": {
     "it": "sito",
     "en": "url",
-    "ru": "url"
+    "ru": "url",
+    "de": "url"
   },
   "email": {
     "it": "email",
     "en": "email",
-    "ru": "email"
+    "ru": "email",
+    "de": "email"
   },
   "address": {
     "it": "indirizzo",
     "en": "address",
-    "ru": "address"
+    "ru": "address",
+    "de": "address"
   },
   "lat": {
     "it": "lat",
     "en": "lat",
-    "ru": "lat"
+    "ru": "lat",
+    "de": "lat"
   },
   "long": {
     "it": "long",
     "en": "long",
-    "ru": "long"
+    "ru": "long",
+    "de": "long"
   },
   "directions": {
     "it": "indicazioni",
     "en": "directions",
-    "ru": "directions"
+    "ru": "directions",
+    "de": "directions"
   },
   "phone": {
     "it": "tel",
     "en": "phone",
-    "ru": "phone"
+    "ru": "phone",
+    "de": "phone"
   },
   "fax": {
     "it": "fax",
     "en": "fax",
-    "ru": "fax"
+    "ru": "fax",
+    "de": "fax"
   },
   "tollfree": {
     "it": "numero verde",
     "en": "tollfree",
-    "ru": "NOT_AVAILABLE"
+    "ru": "NOT_AVAILABLE",
+    "de": "tollfree"
   },
   "wikipedia": {
     "it": "NOT_AVAILABLE",
     "en": "wikipedia",
-    "ru": "NOT_AVAILABLE"
+    "ru": "NOT_AVAILABLE",
+    "de": "NOT_AVAILABLE"
   },
   "wikidata": {
     "it": "wikidata",
     "en": "wikidata",
-    "ru": "wdid"
+    "ru": "wdid",
+    "de": "wikidata"
   },
   "image": {
     "it": "immagine",
     "en": "image",
-    "ru": "image"
+    "ru": "image",
+    "de": "image"
   },
   "hours": {
     "it": "orari",
     "en": "hours",
-    "ru": "hours"
+    "ru": "hours",
+    "de": "hours"
   },
   "price": {
     "it": "prezzo",
     "en": "price",
-    "ru": "price"
+    "ru": "price",
+    "de": "price"
   },
   "description": {
     "it": "descrizione",
     "en": "content",
-    "ru": "content"
+    "ru": "content",
+    "de": "description"
   },
   "facebook": {
     "it": "NOT_AVAILABLE",
     "en": "facebook",
-    "ru": "facebook"
+    "ru": "facebook",
+    "de": "facebook"
+  },
+  "types": {
+    "it": "NOT_AVAILABLE",
+    "en": "NOT_AVAILABLE",
+    "ru": "NOT_AVAILABLE",
+    "de": "types"
+  },
+  "type": {
+    "it": "NOT_AVAILABLE",
+    "en": "NOT_AVAILABLE",
+    "ru": "type",
+    "de": "type"
   }
 }
