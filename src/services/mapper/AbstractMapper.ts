@@ -10,6 +10,7 @@ export abstract class AbstractMapper {
     protected lang: SUPPORTED_LANGUAGES;
     parser = new WikitextParser();
     private readonly NON_AVAILABLE_LABEL = 'NOT_AVAILABLE';
+    protected static readonly PARSING_ERROR_MESSAGE = "Error while parsing templates.";
     private fetchservice: FetchService;
 
     protected constructor(lang: SUPPORTED_LANGUAGES) {

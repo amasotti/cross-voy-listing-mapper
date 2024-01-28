@@ -28,22 +28,18 @@ export class GermanMapper extends AbstractMapper {
             vCards = this.parseVCards(vCardsStrings);
         } catch (err) {
             console.log(err);
-            return "Error while parsing templates."
+            return GermanMapper.PARSING_ERROR_MESSAGE;
         }
 
 
         // Filter templates by targetTemplate
-        const wishedTemplates = this.filterVCards(vCards, targetTemplate);
-        wishedTemplates.forEach(template => {
-            console.log(template.params["name"]);
-        })
-
-        if (wishedTemplates.length === 0) {
+        const filteredVCards = this.filterVCards(vCards, targetTemplate);
+        if (filteredVCards.length === 0) {
             return `No '${targetTemplate}' template found in ${article} article.`
         }
 
         // Map templates to targetLanguage
-        const mappedTemplates = this.mapTemplateArray(wishedTemplates, targetLanguage);
+        const mappedTemplates = this.mapTemplateArray(filteredVCards, targetLanguage);
         // Correct type
         for (const template of mappedTemplates) {
             template.type = targetTemplate;
