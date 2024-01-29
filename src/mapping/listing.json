@@ -107,6 +107,18 @@
     "ru": "price",
     "de": "price"
   },
+  "checkin": {
+    "it": "checkin",
+    "en": "checkin",
+    "ru": "checkin",
+    "de": "checkin"
+  },
+  "checkout": {
+    "it": "checkout",
+    "en": "checkout",
+    "ru": "checkout",
+    "de": "checkout"
+  },
   "description": {
     "it": "descrizione",
     "en": "content",
